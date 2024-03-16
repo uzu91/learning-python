@@ -10,10 +10,7 @@ def create_country(op):
     name = input("Ingrese el nombre del país: ")
     abrev = input("Ingrese la abreviatura del país: ")
     descrip = input("Ingrese la descripción del país: ")
-    created_at = input("Ingrese la fecha de creación: ")
-    updated_at = input("Ingrese la fecha de actualización: ")
-    cur.execute("INSERT INTO Country (name, abrev, descrip, created_at, updated_at) VALUES (?, ?, ?, ?, ?)",
-                (name, abrev, descrip, created_at, updated_at))
+    cur.execute("INSERT INTO Country (name, abrev, descrip, created_at, updated_at) VALUES (?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)", (name, abrev, descrip))
     con.commit()
     print("Registro de país creado con éxito.")
 
@@ -26,12 +23,11 @@ def create_department(op):
     name = input("Ingrese el nombre del departamento: ")
     abrev = input("Ingrese la abreviatura del departamento: ")
     descrip = input("Ingrese la descripción del departamento: ")
-    id_country = input("Ingrese el ID del país al que pertenece el departamento: ") 
-    created_at = input("Ingrese la fecha de creación: ")
-    updated_at = input("Ingrese la fecha de actualización: ")
-    
-    cur.execute("INSERT INTO Department (name, abrev, descrip, id_country, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?)", 
-                (name, abrev, descrip, id_country, created_at, updated_at))
+    cur.execute("SELECT * from Country")
+    print(cur.fetchall)
+    id_country = input("Ingrese el ID del país al que pertenece el departamento: ")
+    cur.execute("INSERT INTO Department (name, abrev, descrip, id_country, created_at, updated_at) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)", 
+                (name, abrev, descrip, id_country))
     con.commit()
     print("Registro de departamento creado con éxito.")
 
@@ -44,12 +40,11 @@ def create_city(op):
     name = input("Ingrese el nombre de la ciudad: ")
     abrev = input("Ingrese la abreviatura de la ciudad: ")
     descrip = input("Ingrese la descripción de la ciudad: ")
+    cur.execute("SELECT * from Department")
+    print(cur.fetchall)
     id_depart = input("Ingrese el ID del departamento al que pertenece la ciudad: ")
-    created_at = input("Ingrese la fecha de creación: ")
-    updated_at = input("Ingrese la fecha de actualización: ")
-    
-    cur.execute("INSERT INTO City (name, abrev, descrip, id_depart, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?)", 
-                (name, abrev, descrip, id_depart, created_at, updated_at))
+    cur.execute("INSERT INTO City (name, abrev, descrip, id_depart, created_at, updated_at) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)", 
+                (name, abrev, descrip, id_depart))
     con.commit()
     print("Registro de ciudad creado con éxito.")
 
@@ -62,11 +57,8 @@ def create_identification_type(op):
     name = input("Ingrese el nombre del tipo de identificación: ")
     abrev = input("Ingrese la abreviatura del tipo de identificación: ")
     descrip = input("Ingrese la descripción del tipo de identificación: ")
-    created_at = input("Ingrese la fecha de creación: ")
-    updated_at = input("Ingrese la fecha de actualización: ")
-   
-    cur.execute("INSERT INTO Identification_types (name, abrev, descrip, created_at, updated_at) VALUES (?, ?, ?, ?, ?)",
-                (name, abrev, descrip, created_at, updated_at))
+    cur.execute("INSERT INTO Identification_types (name, abrev, descrip, created_at, updated_at) VALUES (?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)",
+                (name, abrev, descrip))
     con.commit()
     print("Registro de tipo de identificación creado con éxito.")
 
@@ -84,11 +76,8 @@ def create_person(op):
     address = input("Ingrese la dirección de la persona: ")
     mobile = input("Ingrese el número de teléfono móvil de la persona: ")
     id_users = input("Ingrese el ID del usuario asociado a la persona: ")
-    created_at = input("Ingrese la fecha de creación: ")
-    updated_at = input("Ingrese la fecha de actualización: ")
-    
-    cur.execute("INSERT INTO Persons (first_name, last_name, id_ident_type, ident_number, id_exp_City, address, mobile, id_users, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                (first_name, last_name, id_ident_type, ident_number, id_exp_city, address, mobile, id_users, created_at, updated_at))
+    cur.execute("INSERT INTO Persons (first_name, last_name, id_ident_type, ident_number, id_exp_City, address, mobile, id_users, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)",
+                (first_name, last_name, id_ident_type, ident_number, id_exp_city, address, mobile, id_users))
     con.commit()
     print("Registro de persona creado con éxito.")
 
@@ -100,12 +89,8 @@ def create_student(op):
 
     code = input("Ingrese el código del estudiante: ")
     id_persons = input("Ingrese el ID del estudiante: ")
-    status = input ("Ingrese el estado del estudiante: ")
-    created_at = input("Ingrese la fecha de creación: ")
-    updated_at = input("Ingrese la fecha de actualización: ")
-    
-    cur.execute("INSERT INTO Students (code, id_persons, status, created_at, updated_at) VALUES (?, ?, ?, ?, ?)",
-                (code, id_persons, status, created_at, updated_at))
+    cur.execute("INSERT INTO Students (code, id_persons, status, created_at, updated_at) VALUES (?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)",
+                (code, id_persons, 0))  # Estado predeterminado
     con.commit()
     print("Registro de estudiante creado con éxito.")
 
@@ -117,12 +102,8 @@ def create_user(op):
 
     email = input("Ingrese el correo electrónico del usuario: ")
     password = input("Ingrese la contraseña del usuario: ")
-    status = input("Ingrese el estado del usuario (1 para activo, 0 para inactivo): ")
-    created_at = input("Ingrese la fecha de creación: ")
-    updated_at = input("Ingrese la fecha de actualización: ")
-    
-    cur.execute("INSERT INTO Users (email, password, status, created_at, updated_at) VALUES (?, ?, ?, ?, ?)", 
-                (email, password, status, created_at, updated_at))
+    cur.execute("INSERT INTO Users (email, password, status, created_at, updated_at) VALUES (?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)", 
+                (email, password, 0))  # Estado predeterminado
     con.commit()
     print("Registro de usuario creado con éxito.")
 
