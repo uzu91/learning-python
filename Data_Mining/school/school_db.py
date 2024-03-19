@@ -14,9 +14,9 @@ cur.execute('''
         name VARCHAR(100) NOT NULL,
         abrev VARCHAR(10) NOT NULL,
         descrip VARCHAR(10) NOT NULL,
-        created_at DATETIME NOT NULL,
-        updated_at DATETIME NOT NULL,
-        deleted_at DATETIME
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        deleted_at DATETIME DEFAULT NULL
     )
 ''')
 
@@ -27,9 +27,9 @@ cur.execute('''
         abrev VARCHAR(10) NOT NULL,
         descrip VARCHAR(10) NOT NULL,
         id_country INTEGER,
-        created_at DATETIME NOT NULL,
-        updated_at DATETIME NOT NULL,
-        deleted_at DATETIME,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        deleted_at DATETIME DEFAULT NULL,
         FOREIGN KEY (id_country) REFERENCES Country(id_country)
     )
 ''')
@@ -41,9 +41,9 @@ cur.execute('''
         abrev VARCHAR(10) NOT NULL,
         descrip VARCHAR(100) NOT NULL,
         id_depart INTEGER,
-        created_at DATETIME NOT NULL,
-        updated_at DATETIME NOT NULL,
-        deleted_at DATETIME,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        deleted_at DATETIME DEFAULT NULL,
         FOREIGN KEY (id_depart) REFERENCES Department(id_depart)
     )
 ''')
@@ -54,9 +54,9 @@ cur.execute('''
         name VARCHAR(50) NOT NULL,
         abrev VARCHAR(10) NOT NULL,
         descrip VARCHAR(100) NOT NULL,
-        created_at DATETIME NOT NULL,
-        updated_at DATETIME NOT NULL,
-        deleted_at DATETIME
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        deleted_at DATETIME DEFAULT NULL
     )
 ''')
 
@@ -71,9 +71,9 @@ cur.execute('''
         address VARCHAR(150) NOT NULL,
         mobile VARCHAR(50) NOT NULL,
         id_users INTEGER,
-        created_at DATETIME NOT NULL,
-        updated_at DATETIME NOT NULL,
-        deleted_at DATETIME,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        deleted_at DATETIME DEFAULT NULL,
         FOREIGN KEY (id_ident_type) REFERENCES Identification_types(id_ident_type),
         FOREIGN KEY (id_exp_City) REFERENCES City(id_exp_City),
         FOREIGN KEY (id_users) REFERENCES Users(id_users)
@@ -85,10 +85,10 @@ cur.execute('''
         id_Student INTEGER PRIMARY KEY NOT NULL,
         code VARCHAR(50) NOT NULL,
         id_persons INTEGER,
-        status INTEGER, -- or BIT if your database supports it
-        created_at DATETIME NOT NULL,
-        updated_at DATETIME NOT NULL,
-        deleted_at DATETIME,
+        status INTEGER DEFAULT 0,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        deleted_at DATETIME DEFAULT NULL,
         FOREIGN KEY (id_persons) REFERENCES Persons(id_persons)
     )
 ''')
@@ -98,10 +98,10 @@ cur.execute('''
         id_users INTEGER PRIMARY KEY NOT NULL,
         email VARCHAR(100) NOT NULL,
         password VARCHAR(250) NOT NULL,
-        status INTEGER, -- or BIT if your database supports it
-        created_at DATETIME NOT NULL,
-        updated_at DATETIME NOT NULL,
-        deleted_at DATETIME
+        status INTEGER DEFAULT 0,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        deleted_at DATETIME DEFAULT NULL
     )
 ''')
 
