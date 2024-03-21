@@ -61,6 +61,18 @@ cur.execute('''
 ''')
 
 cur.execute('''
+    CREATE TABLE IF NOT EXISTS User (
+        id_users INTEGER PRIMARY KEY NOT NULL,
+        email VARCHAR(100) NOT NULL,
+        password VARCHAR(250) NOT NULL,
+        status INTEGER DEFAULT 0,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        deleted_at DATETIME DEFAULT NULL
+    )
+''')
+
+cur.execute('''
     CREATE TABLE IF NOT EXISTS Persons (
         id_persons INTEGER PRIMARY KEY, 
         first_name VARCHAR(50) NOT NULL, 
@@ -90,18 +102,6 @@ cur.execute('''
         updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         deleted_at DATETIME DEFAULT NULL,
         FOREIGN KEY (id_persons) REFERENCES Persons(id_persons)
-    )
-''')
-
-cur.execute('''
-    CREATE TABLE IF NOT EXISTS Users (
-        id_users INTEGER PRIMARY KEY NOT NULL,
-        email VARCHAR(100) NOT NULL,
-        password VARCHAR(250) NOT NULL,
-        status INTEGER DEFAULT 0,
-        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-        updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-        deleted_at DATETIME DEFAULT NULL
     )
 ''')
 
